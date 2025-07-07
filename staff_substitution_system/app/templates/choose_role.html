@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #e0f7fa, #f0f0ff);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .container-box {
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-top: 60px;
+    max-width: 700px;
+  }
+
+  .role-card {
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    border-radius: 15px;
+    border: 2px solid transparent;
+  }
+
+  .role-card:hover,
+  .role-card.selected {
+    border-color: #0d6efd;
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.3);
+    background: #eef6ff;
+  }
+
+  .role-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #0d6efd;
+  }
+
+  .btn-primary {
+    padding: 10px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="container d-flex justify-content-center">
+  <div class="container-box text-center">
+    <h2 class="mb-4 text-dark">Welcome to Staff Substitution System</h2>
+    <p class="mb-4 text-muted">Please choose your role to continue</p>
+
+    <form id="roleForm">
+      <div class="row justify-content-center">
+        <div class="col-md-5 mb-3">
+          <div class="card role-card p-4" data-role="hod">
+            <div class="role-icon">👩‍💼</div>
+            <h5 class="card-title">HOD</h5>
+            <input type="radio" name="role" value="hod" class="form-check-input d-none">
+          </div>
+        </div>
+        <div class="col-md-5 mb-3">
+          <div class="card role-card p-4" data-role="staff">
+            <div class="role-icon">👨‍🏫</div>
+            <h5 class="card-title">Staff</h5>
+            <input type="radio" name="role" value="staff" class="form-check-input d-none">
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Continue</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const cards = document.querySelectorAll('.role-card');
+  const form = document.getElementById('roleForm');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.querySelector('input[type=radio]').checked = true;
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const selected = document.querySelector('input[name="role"]:checked');
+    if (selected) {
+      window.location.href = `/login/${selected.value}`;
+    } else {
+      alert("Please select a role to continue.");
+    }
+  });
+</script>
+{% endblock %}

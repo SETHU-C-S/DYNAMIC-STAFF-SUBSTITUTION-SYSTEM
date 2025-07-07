@@ -1,0 +1,32 @@
+<!-- templates/substitutions.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h3>Substitution Assignments</h3>
+
+<table class="table table-bordered table-hover mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Absent Staff</th>
+      <th>Substitute</th>
+      <th>Date</th>
+      <th>Hour</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sub in substitutions %}
+    <tr>
+      <td>{{ sub.absent_staff.name }}</td>
+      <td>{{ sub.substitute_staff.name }}</td>
+      <td>{{ sub.date }}</td>
+      <td>{{ sub.hour }}</td>
+      <td>{{ sub.reason }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="text-center">No substitution records found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ url_for('main_app.hod_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+{% endblock %}

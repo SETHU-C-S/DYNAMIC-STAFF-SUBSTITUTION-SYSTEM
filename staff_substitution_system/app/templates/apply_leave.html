@@ -1,0 +1,27 @@
+<!-- templates/apply_leave.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h3>Apply for Leave</h3>
+
+<form method="POST" action="{{ url_for('main_app.apply_leave') }}" class="row g-3 mt-3">
+  <div class="col-md-4">
+    <label>Date</label>
+    <input type="date" name="date" class="form-control" required>
+  </div>
+  <div class="col-md-2">
+    <label>Hour</label>
+    <input type="number" name="hour" class="form-control" min="1" max="8" required>
+  </div>
+  <div class="col-md-6">
+    <label>Reason</label>
+    <input type="text" name="reason" class="form-control" required>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-success w-100">Submit Leave Request</button>
+  </div>
+</form>
+
+<div class="mt-4">
+  <a href="{{ url_for('main_app.staff_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

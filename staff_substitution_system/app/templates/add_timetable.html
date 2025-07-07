@@ -1,0 +1,48 @@
+<!-- templates/add_timetable.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h3>Add Timetable Entry</h3>
+
+<form method="POST" action="{{ url_for('main_app.add_timetable') }}" class="row g-3 mt-3">
+  <div class="col-md-3">
+    <label>Staff</label>
+    <select name="staff_id" class="form-select" required>
+      <option value="" selected disabled>Select Staff</option>
+      {% for member in staff %}
+        <option value="{{ member.id }}">{{ member.name }} ({{ member.department }})</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label>Day</label>
+    <select name="day" class="form-select" required>
+      <option value="" disabled selected>Select Day</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label>Hour</label>
+    <input type="number" name="hour" class="form-control" placeholder="1-8" min="1" max="8" required>
+  </div>
+
+  <div class="col-md-3">
+    <label>Subject</label>
+    <input type="text" name="subject" class="form-control" required>
+  </div>
+
+  <div class="col-md-2 d-flex align-items-end">
+    <button type="submit" class="btn btn-success w-100">Add</button>
+  </div>
+</form>
+
+<div class="mt-4">
+  <a href="{{ url_for('main_app.hod_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

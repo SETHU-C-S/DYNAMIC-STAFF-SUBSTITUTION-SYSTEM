@@ -1,0 +1,20 @@
+<!-- templates/login.html -->
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h3 class="text-center">Login</h3>
+    <form method="POST" action="{{ url_for('main_app.login',role=role) }}">
+      <div class="mb-3">
+        <label>Email / Username</label>
+        <input type="text" class="form-control" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

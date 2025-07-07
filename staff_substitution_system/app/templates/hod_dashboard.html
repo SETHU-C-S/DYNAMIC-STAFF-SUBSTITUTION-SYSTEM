@@ -1,0 +1,85 @@
+<!-- templates/hod_dashboard.html -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>Welcome, HOD</h2>
+
+<hr>
+<h4>Add New Staff</h4>
+<form method="POST" action="{{ url_for('main_app.add_staff') }}" class="row g-3">
+  <div class="col-md-3">
+    <input type="text" name="name" class="form-control" placeholder="Name" required>
+  </div>
+  <div class="col-md-3">
+    <input type="email" name="email" class="form-control" placeholder="Email" required>
+  </div>
+  <div class="col-md-2">
+    <input type="password" name="password" class="form-control" placeholder="Password" required>
+  </div>
+  <div class="col-md-2">
+    <input type="text" name="department" class="form-control" placeholder="Department" required>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-success w-100">Add Staff</button>
+  </div>
+</form>
+
+<hr>
+<h4>Pending Leave Requests</h4>
+<table class="table table-bordered table-hover mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Staff Name</th>
+      <th>Date</th>
+      <th>Hour</th>
+      <th>Reason</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for leave in leaves %}
+    <tr>
+      <td>{{ leave.staff.name }}</td>
+      <td>{{ leave.date }}</td>
+      <td>{{ leave.hour }}</td>
+      <td>{{ leave.reason }}</td>
+      <td>
+        <a href="{{ url_for('main_app.approve_leave', leave_id=leave.id, action='accept') }}" class="btn btn-success btn-sm">Accept</a>
+        <a href="{{ url_for('main_app.approve_leave', leave_id=leave.id, action='reject') }}" class="btn btn-danger btn-sm">Reject</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="text-center">No pending requests.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<hr>
+<h4>Staff List</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Department</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for member in staff %}
+    <tr>
+      <td>{{ member.name }}</td>
+      <td>{{ member.email }}</td>
+      <td>{{ member.department }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="mt-4">
+  <a href="{{ url_for('main_app.add_timetable') }}" class="btn btn-primary">Add Timetable Entry</a>
+  <a href="{{ url_for('main_app.view_substitutions') }}" class="btn btn-secondary">View All Substitutions</a>
+</div>
+<a href="{{ url_for('main_app.generate_substitutions') }}" class="btn btn-warning">
+  🛠 Generate Substitution Duties
+</a>
+
+{% endblock %}
